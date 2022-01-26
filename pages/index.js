@@ -20,25 +20,14 @@ function Titulo(props){
   );
 }
 
-// function HomePage() {
-//     return (    
-//         <>
-//           <GlobalStyle />
-//           <Titulo>Boas vindas ao robcord!</Titulo>
-//           <h2>Discord do RobCord</h2>
-//         </>
-//     )
-//   }
-  
-// export default HomePage
-
-
 export default function PaginaInicial() {
-  const username = 'roberiosouza';
+  // const username = 'roberiosouza';
+  const [username, setUserName] = React.useState();
+  const [buttonHabilitado, setButtonDesabilitado] = React.useState(true);
+  const roteamento = useRouter();
 
   return (
     <>
-      <GlobalStyle />
       <Box
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -65,6 +54,10 @@ export default function PaginaInicial() {
           {/* Formulário */}
           <Box
             as="form"
+            onSubmit = {function (enventDefault){
+              enventDefault.preventDefault();
+              roteamento.push('/chat');
+            }}
             styleSheet={{
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
@@ -76,6 +69,16 @@ export default function PaginaInicial() {
             </Text>
 
             <TextField
+              value = {username}
+              onChange = {function (event) { 
+                const vlr = event.target.value;
+                setUserName(vlr); 
+                if (vlr.length > 2) {
+                  setButtonDesabilitado(false);
+                } else {
+                  setButtonDesabilitado(true);
+                }
+              }}
               fullWidth
               textFieldColors={{
                 neutral: {
@@ -90,6 +93,7 @@ export default function PaginaInicial() {
               type='submit'
               label='Entrar'
               fullWidth
+              disabled = {buttonHabilitado}
               buttonColors={{
                 contrastColor: appConfig.theme.colors.neutrals["000"],
                 mainColor: appConfig.theme.colors.primary[500],
