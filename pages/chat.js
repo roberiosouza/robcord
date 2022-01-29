@@ -19,6 +19,11 @@ export default function ChatPage() {
         ]);
     }
 
+    function enviaMensagem(){
+      handleNovaMensagem(mensagem);
+      setMensagem('');     
+    }
+
     return (
         <Box
           styleSheet={{
@@ -74,8 +79,7 @@ export default function ChatPage() {
                   onKeyPress={(event) => {
                     if (event.key === 'Enter') {
                       event.preventDefault();
-                      handleNovaMensagem(mensagem);
-                      setMensagem('');
+                      enviaMensagem();
                     }
                   }}
                   placeholder="Insira sua mensagem aqui..."
@@ -89,6 +93,20 @@ export default function ChatPage() {
                     backgroundColor: appConfig.theme.colors.neutrals[800],
                     marginRight: '12px',
                     color: appConfig.theme.colors.neutrals[200],
+                  }}
+                />
+                <Button iconName="arrowRight"
+                  onClick={(event) => {
+                    if (mensagem.length > 0)
+                      enviaMensagem();
+                  }}
+                  styleSheet={{
+                    backgroundColor: appConfig.theme.colors.neutrals[900],
+                    disabled: {},
+                    focus: {backgroundColor : appConfig.theme.colors.neutrals[700]},
+                    hover: {
+                      backgroundColor : appConfig.theme.colors.neutrals[700]
+                    }
                   }}
                 />
               </Box>
