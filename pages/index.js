@@ -22,9 +22,16 @@ function Titulo(props){
 
 export default function PaginaInicial() {
   // const username = 'roberiosouza';
-  const [username, setUserName] = React.useState();
+  const [username, setUserName] = React.useState('');
   const [buttonHabilitado, setButtonDesabilitado] = React.useState(true);
   const roteamento = useRouter();
+
+  function linkUser() {
+    if (username != undefined && username != '') {
+      return `https://github.com/${username}.png`
+    }
+      return '';
+  }
 
   return (
     <>
@@ -126,7 +133,7 @@ export default function PaginaInicial() {
                 borderRadius: '50%',
                 marginBottom: '16px',
               }}
-              src={`https://github.com/${username}.png`}
+              src={linkUser()}
             />
             <Text
               variant="body4"
